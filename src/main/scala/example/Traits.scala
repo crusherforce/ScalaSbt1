@@ -16,9 +16,15 @@ object Traits {
 
   def runQueueTrait(): Unit = {
     var a = new BasicIntQueue with Incrementing with Filtering
-    a.put(-1); a.put(0); a.put(1); println(a.size())
+    a.put(-1)
+    a.put(0)
+    a.put(1)
+    println(a.size())
     a = new BasicIntQueue with Filtering with Incrementing
-    a.put(-1); a.put(0); a.put(1); println(a.size())
+    a.put(-1)
+    a.put(0)
+    a.put(1)
+    println(a.size())
   }
 
   class Point(x: Int, y: Int) extends Ordered[Point] {
@@ -71,27 +77,35 @@ object Traits {
 
   abstract class IntQueue {
     def get(): Int
+
     def put(x: Int)
   }
 
   trait Doubling extends IntQueue {
-    abstract override def put(x: Int) {super.put(2*x)}
+    abstract override def put(x: Int) {
+      super.put(2 * x)
+    }
   }
 
   trait Incrementing extends IntQueue {
-    abstract override def put(x: Int) {super.put(x+1)}
+    abstract override def put(x: Int) {
+      super.put(x + 1)
+    }
   }
 
   trait Filtering extends IntQueue {
     abstract override def put(x: Int): Unit = {
-      if (x>=0) super.put(x)
+      if (x >= 0) super.put(x)
     }
   }
 
   class BasicIntQueue extends IntQueue {
     private val buf = new ArrayBuffer[Int]
+
     def size(): Int = buf.size
+
     def get(): Int = buf.remove(0)
+
     override def put(x: Int): Unit = buf += x
   }
 }
